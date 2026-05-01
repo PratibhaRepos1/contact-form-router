@@ -1,7 +1,9 @@
 import logging
+import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env", override=True)
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,9 +17,12 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Contact Form Router", version="1.0.0")
 
+_default_origins = "http://localhost:5173"
+_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", _default_origins).split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=_origins,
     allow_methods=["POST", "GET"],
     allow_headers=["Content-Type"],
 )
