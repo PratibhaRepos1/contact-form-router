@@ -5,6 +5,6 @@
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "contact-form-router-ffp6.vercel.app" }
+    { "source": "/api/:path*", "destination": "https://contact-form-router-ffp6.vercel.app/api/:path*" }
   ]
 }
